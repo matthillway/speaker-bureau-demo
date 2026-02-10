@@ -1,6 +1,6 @@
 "use client";
 
-import { use } from "react";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import { format, parseISO } from "date-fns";
 import {
@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { contracts, speakers, getStatusColor, getStatusLabel } from "@/lib/data";
+
 
 type TimelineStep = {
   label: string;
@@ -86,8 +87,8 @@ function getTimeline(status: string): TimelineStep[] {
   ];
 }
 
-export default function ContractDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function ContractDetailPage() {
+  const { id } = useParams<{ id: string }>();
   const contract = contracts.find((c) => c.id === id);
 
   if (!contract) {

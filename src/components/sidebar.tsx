@@ -35,7 +35,7 @@ export function Sidebar() {
         {navigation.map((item) => {
           const isActive =
             pathname === item.href ||
-            (item.href !== "/" && pathname.startsWith(item.href));
+            (item.href !== "/" && pathname?.startsWith(item.href));
           return (
             <Link
               key={item.name}
