@@ -67,7 +67,7 @@ export function Sidebar() {
       <div className="border-t px-4 py-3">
         <p className="text-[10px] text-slate-400 text-center">
           Powered by{" "}
-          <span className="font-semibold text-indigo-500">Hillway.ai</span>
+          <span className="font-semibold text-indigo-500">Hillway</span>
         </p>
       </div>
     </div>
