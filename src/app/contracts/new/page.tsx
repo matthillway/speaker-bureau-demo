@@ -23,9 +23,9 @@ import { speakers, getCategoryColor } from "@/lib/data";
 
 const steps = [
   { id: 1, title: "Event Details" },
-  { id: 2, title: "Speaker Selection" },
-  { id: 3, title: "Contract Details" },
-  { id: 4, title: "Review & Generate" },
+  { id: 2, title: "Speaker" },
+  { id: 3, title: "Contract" },
+  { id: 4, title: "Review" },
 ];
 
 export default function NewContractPage() {
@@ -57,41 +57,41 @@ export default function NewContractPage() {
 
   if (isSuccess) {
     return (
-      <div className="max-w-2xl mx-auto py-16 text-center space-y-6">
+      <div className="max-w-2xl mx-auto py-8 sm:py-16 text-center space-y-6 px-2">
         <div className="flex justify-center">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
             <CheckCircle2 className="h-8 w-8 text-emerald-600" />
           </div>
         </div>
-        <h1 className="text-2xl font-bold text-slate-900">Contract Generated Successfully</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Contract Generated Successfully</h1>
         <p className="text-slate-500">
           Contract <span className="font-semibold">CTR-2026-014</span> has been created for{" "}
           <span className="font-semibold">{form.eventName || "Your Event"}</span>.
         </p>
         <Card>
-          <CardContent className="p-6 space-y-3">
+          <CardContent className="p-4 sm:p-6 space-y-3">
             <h3 className="font-semibold text-slate-900">Next Steps</h3>
             <div className="space-y-2 text-sm text-slate-600 text-left">
               <div className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-500" />
+                <Check className="h-4 w-4 text-emerald-500 shrink-0" />
                 Contract document generated from template
               </div>
               <div className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-500" />
+                <Check className="h-4 w-4 text-emerald-500 shrink-0" />
                 Saved to Microsoft Teams / Contracts / 2026 folder
               </div>
               <div className="flex items-center gap-2">
-                <div className="h-4 w-4 rounded-full border-2 border-indigo-300" />
+                <div className="h-4 w-4 rounded-full border-2 border-indigo-300 shrink-0" />
                 DocuSign draft envelope created - ready for review
               </div>
               <div className="flex items-center gap-2">
-                <div className="h-4 w-4 rounded-full border-2 border-slate-200" />
+                <div className="h-4 w-4 rounded-full border-2 border-slate-200 shrink-0" />
                 Awaiting your review before sending for signature
               </div>
             </div>
           </CardContent>
         </Card>
-        <div className="flex justify-center gap-3">
+        <div className="flex flex-col sm:flex-row justify-center gap-3">
           <Button variant="outline" asChild>
             <Link href="/contracts">View All Contracts</Link>
           </Button>
@@ -112,7 +112,7 @@ export default function NewContractPage() {
           </Link>
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">New Contract</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900">New Contract</h1>
           <p className="text-sm text-slate-500 mt-0.5">
             Create a new speaker engagement contract
           </p>
@@ -120,11 +120,11 @@ export default function NewContractPage() {
       </div>
 
       {/* Steps */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1 sm:gap-2">
         {steps.map((step, i) => (
-          <div key={step.id} className="flex items-center gap-2 flex-1">
+          <div key={step.id} className="flex items-center gap-1 sm:gap-2 flex-1">
             <div
-              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${
+              className={`flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${
                 step.id < currentStep
                   ? "bg-indigo-600 text-white"
                   : step.id === currentStep
@@ -132,10 +132,10 @@ export default function NewContractPage() {
                   : "bg-slate-100 text-slate-400"
               }`}
             >
-              {step.id < currentStep ? <Check className="h-4 w-4" /> : step.id}
+              {step.id < currentStep ? <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> : step.id}
             </div>
             <span
-              className={`text-sm font-medium ${
+              className={`text-xs sm:text-sm font-medium hidden sm:inline ${
                 step.id <= currentStep ? "text-slate-900" : "text-slate-400"
               }`}
             >
@@ -159,8 +159,8 @@ export default function NewContractPage() {
             <CardTitle>Event Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="col-span-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="sm:col-span-2">
                 <Label htmlFor="eventName">Event Name</Label>
                 <Input
                   id="eventName"
@@ -190,7 +190,7 @@ export default function NewContractPage() {
                   className="mt-1.5"
                 />
               </div>
-              <div>
+              <div className="sm:col-span-2">
                 <Label htmlFor="location">Location</Label>
                 <Input
                   id="location"
@@ -203,7 +203,7 @@ export default function NewContractPage() {
             </div>
             <Separator />
             <h3 className="font-semibold text-slate-900">Client Information</h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="clientName">Client Name</Label>
                 <Input
@@ -262,7 +262,7 @@ export default function NewContractPage() {
               <div key={s.id}>
                 <div
                   onClick={() => s.available && setSelectedSpeaker(s.id)}
-                  className={`flex items-center gap-4 rounded-lg border p-4 transition-colors ${
+                  className={`flex items-center gap-3 sm:gap-4 rounded-lg border p-3 sm:p-4 transition-colors ${
                     !s.available
                       ? "opacity-50 cursor-not-allowed"
                       : selectedSpeaker === s.id
@@ -270,11 +270,11 @@ export default function NewContractPage() {
                       : "hover:bg-slate-50 cursor-pointer"
                   }`}
                 >
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-700">
+                  <div className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs sm:text-sm font-bold text-indigo-700">
                     {s.avatar}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-1.5">
                       <p className="text-sm font-semibold text-slate-900">{s.name}</p>
                       <Badge className={getCategoryColor(s.category)}>{s.category}</Badge>
                       {!s.available && (
@@ -282,8 +282,11 @@ export default function NewContractPage() {
                       )}
                     </div>
                     <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">{s.bio}</p>
+                    <p className="text-xs font-semibold text-slate-900 mt-1 sm:hidden">
+                      &pound;{s.fee.toLocaleString()} - &pound;{s.feeMax.toLocaleString()}
+                    </p>
                   </div>
-                  <div className="text-right shrink-0">
+                  <div className="text-right shrink-0 hidden sm:block">
                     <p className="text-sm font-semibold text-slate-900">
                       &pound;{s.fee.toLocaleString()} - &pound;{s.feeMax.toLocaleString()}
                     </p>
@@ -300,7 +303,7 @@ export default function NewContractPage() {
                   </div>
                 </div>
                 {selectedSpeaker === s.id && (
-                  <div className="ml-16 mt-2">
+                  <div className="ml-13 sm:ml-16 mt-2">
                     <button
                       onClick={() => setExpandedTc(expandedTc === s.id ? null : s.id)}
                       className="flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-800 cursor-pointer"
@@ -347,7 +350,7 @@ export default function NewContractPage() {
                 </div>
               </div>
             )}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="fee">Agreed Fee (&pound;)</Label>
                 <Input
@@ -419,7 +422,7 @@ export default function NewContractPage() {
               <CardTitle>Contract Preview</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
                     <p className="text-xs text-slate-500 uppercase tracking-wider font-medium">Event</p>
@@ -494,9 +497,9 @@ export default function NewContractPage() {
               <CardTitle className="text-base">Generation Options</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <label className="flex items-center gap-3 rounded-lg border p-3 cursor-pointer hover:bg-slate-50">
-                <input type="checkbox" defaultChecked className="h-4 w-4 rounded border-slate-300 text-indigo-600" />
-                <Upload className="h-4 w-4 text-slate-500" />
+              <label className="flex items-start gap-3 rounded-lg border p-3 cursor-pointer hover:bg-slate-50">
+                <input type="checkbox" defaultChecked className="h-4 w-4 rounded border-slate-300 text-indigo-600 mt-0.5" />
+                <Upload className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" />
                 <div>
                   <p className="text-sm font-medium text-slate-900">Save to Microsoft Teams</p>
                   <p className="text-xs text-slate-500">
@@ -504,9 +507,9 @@ export default function NewContractPage() {
                   </p>
                 </div>
               </label>
-              <label className="flex items-center gap-3 rounded-lg border p-3 cursor-pointer hover:bg-slate-50">
-                <input type="checkbox" defaultChecked className="h-4 w-4 rounded border-slate-300 text-indigo-600" />
-                <FileText className="h-4 w-4 text-slate-500" />
+              <label className="flex items-start gap-3 rounded-lg border p-3 cursor-pointer hover:bg-slate-50">
+                <input type="checkbox" defaultChecked className="h-4 w-4 rounded border-slate-300 text-indigo-600 mt-0.5" />
+                <FileText className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" />
                 <div>
                   <p className="text-sm font-medium text-slate-900">Create DocuSign Draft</p>
                   <p className="text-xs text-slate-500">

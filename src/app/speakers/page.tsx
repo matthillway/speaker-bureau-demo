@@ -23,24 +23,24 @@ export default function SpeakersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Speakers</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Speakers</h1>
           <p className="text-sm text-slate-500 mt-1">
             {speakers.length} speakers in your bureau roster
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="relative">
+          <div className="relative flex-1 sm:flex-none">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <Input
               placeholder="Search speakers..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 w-64"
+              className="pl-9 w-full sm:w-64"
             />
           </div>
-          <div className="flex rounded-lg border p-1">
+          <div className="flex rounded-lg border p-1 shrink-0">
             <button
               onClick={() => setViewMode("grid")}
               className={`rounded-md px-3 py-1 text-xs font-medium cursor-pointer ${
@@ -62,12 +62,12 @@ export default function SpeakersPage() {
       </div>
 
       {viewMode === "grid" ? (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map((speaker) => (
             <Card key={speaker.id} className="hover:shadow-md transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-700">
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-base sm:text-lg font-bold text-indigo-700">
                     {speaker.avatar}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -136,49 +136,75 @@ export default function SpeakersPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <table className="w-full">
-              <thead>
-                <tr className="border-b text-left">
-                  <th className="pb-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Speaker</th>
-                  <th className="pb-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Category</th>
-                  <th className="pb-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Fee Range</th>
-                  <th className="pb-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Contracts</th>
-                  <th className="pb-3 text-xs font-medium text-slate-500 uppercase tracking-wider">T&Cs</th>
-                  <th className="pb-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
-                {filtered.map((speaker) => (
-                  <tr key={speaker.id} className="hover:bg-slate-50">
-                    <td className="py-3">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-700">
-                          {speaker.avatar}
-                        </div>
-                        <div>
+            {/* Desktop table */}
+            <div className="hidden md:block">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b text-left">
+                    <th className="pb-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Speaker</th>
+                    <th className="pb-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Category</th>
+                    <th className="pb-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Fee Range</th>
+                    <th className="pb-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Contracts</th>
+                    <th className="pb-3 text-xs font-medium text-slate-500 uppercase tracking-wider">T&Cs</th>
+                    <th className="pb-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y">
+                  {filtered.map((speaker) => (
+                    <tr key={speaker.id} className="hover:bg-slate-50">
+                      <td className="py-3">
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-700">
+                            {speaker.avatar}
+                          </div>
                           <p className="text-sm font-medium text-slate-900">{speaker.name}</p>
                         </div>
-                      </div>
-                    </td>
-                    <td className="py-3">
-                      <Badge className={getCategoryColor(speaker.category)}>{speaker.category}</Badge>
-                    </td>
-                    <td className="py-3 text-sm text-slate-900">
-                      &pound;{speaker.fee.toLocaleString()} - &pound;{speaker.feeMax.toLocaleString()}
-                    </td>
-                    <td className="py-3 text-sm text-slate-600">{speaker.contractCount}</td>
-                    <td className="py-3 text-sm text-slate-600">{speaker.tcVersion}</td>
-                    <td className="py-3">
+                      </td>
+                      <td className="py-3">
+                        <Badge className={getCategoryColor(speaker.category)}>{speaker.category}</Badge>
+                      </td>
+                      <td className="py-3 text-sm text-slate-900">
+                        &pound;{speaker.fee.toLocaleString()} - &pound;{speaker.feeMax.toLocaleString()}
+                      </td>
+                      <td className="py-3 text-sm text-slate-600">{speaker.contractCount}</td>
+                      <td className="py-3 text-sm text-slate-600">{speaker.tcVersion}</td>
+                      <td className="py-3">
+                        {speaker.available ? (
+                          <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200">Available</Badge>
+                        ) : (
+                          <Badge className="bg-red-100 text-red-700 border-red-200">Unavailable</Badge>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile list */}
+            <div className="md:hidden space-y-3">
+              {filtered.map((speaker) => (
+                <div key={speaker.id} className="flex items-center gap-3 rounded-lg border p-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-700">
+                    {speaker.avatar}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-medium text-slate-900">{speaker.name}</p>
                       {speaker.available ? (
-                        <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200">Available</Badge>
+                        <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 text-[10px]">Available</Badge>
                       ) : (
-                        <Badge className="bg-red-100 text-red-700 border-red-200">Unavailable</Badge>
+                        <Badge className="bg-red-100 text-red-700 border-red-200 text-[10px]">Unavailable</Badge>
                       )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </div>
+                    <Badge className={`${getCategoryColor(speaker.category)} mt-0.5`}>{speaker.category}</Badge>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      &pound;{speaker.fee.toLocaleString()} - &pound;{speaker.feeMax.toLocaleString()} &middot; {speaker.contractCount} contracts
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </CardContent>
         </Card>
       )}

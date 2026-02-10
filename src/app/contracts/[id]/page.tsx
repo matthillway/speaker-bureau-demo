@@ -107,7 +107,7 @@ export default function ContractDetailPage() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
           <Button variant="ghost" size="icon" asChild>
             <Link href="/contracts">
@@ -116,7 +116,7 @@ export default function ContractDetailPage() {
           </Button>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl font-bold text-slate-900">{contract.id}</h1>
+              <h1 className="text-xl sm:text-2xl font-bold text-slate-900">{contract.id}</h1>
               <Badge className={getStatusColor(contract.status)}>
                 {getStatusLabel(contract.status)}
               </Badge>
@@ -124,40 +124,40 @@ export default function ContractDetailPage() {
             <p className="text-sm text-slate-500 mt-0.5">{contract.eventName}</p>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2 pl-11 sm:pl-0">
           {contract.status === "draft" && (
-            <Button>
+            <Button size="sm">
               <FileText className="h-4 w-4" />
               Generate Contract
             </Button>
           )}
           {contract.status === "generated" && (
-            <Button>
+            <Button size="sm">
               <Send className="h-4 w-4" />
               Send for Signature
             </Button>
           )}
           {contract.status === "sent" && (
-            <Button variant="outline">
+            <Button variant="outline" size="sm">
               <Clock className="h-4 w-4" />
               Chase Signature
             </Button>
           )}
-          <Button variant="outline">
+          <Button variant="outline" size="sm">
             <Download className="h-4 w-4" />
             Download PDF
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
-        <div className="col-span-2 space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="text-base">Contract Summary</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
                     <p className="text-xs text-slate-500 uppercase tracking-wider font-medium">Event</p>
